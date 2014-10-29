@@ -1,4 +1,4 @@
-#! bin/bash
+#!bin/bash
 
 export UCHIWA_STATS=${UCHIWA_STATS:-10}
 export UCHIWA_REFRESH=${UCHIWA_REFRESH:-10000}
