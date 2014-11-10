@@ -5,7 +5,7 @@
 The dashboard is under active development, and major changes are not uncommon.
 
 [![Build Status](https://travis-ci.org/sensu/uchiwa.svg?branch=master)](https://travis-ci.org/sensu/uchiwa)
-[![Code   Climate](https://codeclimate.com/github/sensu/uchiwa/badges/gpa.svg)](https://codeclimate.com/github/sensu/uchiwa)
+[![Code Climate](https://codeclimate.com/github/sensu/uchiwa/badges/gpa.svg)](https://codeclimate.com/github/sensu/uchiwa)
 
 ## Features
 
@@ -27,7 +27,7 @@ The dashboard is under active development, and major changes are not uncommon.
 ### With packages
 
 ##### Using Sensu repositories
-See [Sensu documentation](http://sensuapp.org/docs/0.13/dashboards_uchiwa)
+See [Sensu documentation](http://sensuapp.org/docs/latest/dashboards_uchiwa)
 
 ### From source
 
@@ -45,6 +45,18 @@ See [Sensu documentation](http://sensuapp.org/docs/0.13/dashboards_uchiwa)
 * Start the dashboard: `go run uchiwa.go`
 * Open your browser: `http://localhost:3000/`
 
+### Docker
+
+This application comes pre-packaged in a docker container for easy deployment.
+
+Make a config.json file for the application, and then launch the uchiwa container with the config mounted as a volume.
+
+    # Create a folder that will be mount as a volume to the Docker container
+    mkdir ~/uchiwa-config
+    # Copy your uchiwa config into this last folder
+    cp ~/uchiwa/config.json ~/uchiwa-config/config.json
+    # Start Docker container. It will listen on port 3000 by default
+    docker run -d -p 3000:3000 -v ~/uchiwa-config:/config uchiwa/uchiwa
 
 ## Configuration
 ### sensu
@@ -52,6 +64,7 @@ See [Sensu documentation](http://sensuapp.org/docs/0.13/dashboards_uchiwa)
 - `host` - String: The address of the Sensu API. **Required**.
 - `port` - Integer: The port of the Sensu API. The default value is *4567*. **Required**
 - `ssl` - Boolean: Determines whether or not to use the *HTTPS* protocol. The default value is *false*.
+- `insecure` - Boolean: Determines whether or not to accept an insecure SSL certificate. The default value is *false*.
 - `path` - String: The path of the Sensu API. Leave empty in case of doubt
 - `user` - String: The username of the Sensu API. Leave empty for none.
 - `pass` - String: The password of the Sensu API. Leave empty for none.
@@ -63,55 +76,6 @@ See [Sensu documentation](http://sensuapp.org/docs/0.13/dashboards_uchiwa)
 - `user` - String: The username of the Uchiwa dashboard. Leave empty for none.
 - `pass` - String: The password of the Uchiwa dashboard. Leave empty for none.
 - `refresh` - Integer: Determines the interval to pull the Sensu APIs, in seconds. The default value is *5*.
-
-## Docker
-
-This application comes pre-packaged in a docker container for easy deployment.
-
-There are two ways of running this container:
-
-### Docker with a config file.
-
-Make a config.json file for the application, and then launch the uchiwa container with the config mounted as a volume.
-
-    # Create a folder that will be mount as a volume to the Docker container
-    mkdir ~/uchiwa-config
-    # Copy your uchiwa config into this last folder
-    cp ~/uchiwa/config.json ~/uchiwa-config/config.json
-    # Start Docker container. It will listen on port 3000 by default
-    docker run -v ~/uchiwa-config:/config uchiwa/uchiwa
-
-### Docker with environment variables
-
-You can instead use environment variables to configure the application. Host is fixed to 0.0.0.0 and port to 3000,
-but the other settings can be set:
-
-- `UCHIWA_USER`
-- `UCHIWA_PASS`
-- `UCHIWA_REFRESH`
-
-And configuring an API is done with other environment variables which are designed to fit into Docker's
-container links (allowing you to point uchiwa at an API just be --linking it to that container)
-
-You can link multiple APIs by providing multiple sets of environment variables with different prefixes.
-
-These variables are mandatory.
-
-- `API1_PORT_4567_TCP_PORT` - The port for the API, usually 4567
-- `API1_PORT_4567_TCP_ADDR` - The hostname or IP for the API
-
-These variables are optional
-
-- `API1_UCHIWA_NAME`
-- `API1_UCHIWA_SSL`
-- `API1_UCHIWA_USER`
-- `API1_UCHIWA_PASS`
-- `API1_UCHIWA_PATH`
-- `API1_UCHIWA_TIMEOUT`
-
-An example of starting the container with the minimum set of environment needed would be:
-
-`docker run -i -t -p 3000 -e API1_PORT_4567_TCP_PORT=3000 -e API1_PORT_4567_TCP_ADDR="1.1.1.1" uchiwa/uchiwa`
 
 ## Health
 You may easily monitor Uchiwa and the Sensu API endpoints with the **/health** page.

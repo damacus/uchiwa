@@ -40,34 +40,41 @@ func (r *results) Get() *results {
 func Build(dcSlice *[]sensu.Sensu) {
 
 	for _, api := range *dcSlice {
-		Health.Sensu[api.Name] = map[string]string{"output": "connection refused"}
+		errorString := "Connection error. Is Sensu API running?"
 
 		// fetch sensu data from the API
 		stashes, err := api.GetStashes()
 		if err != nil {
+			Health.Sensu[api.Name] = map[string]string{"output": errorString}
 			logger.Warning(err)
 			continue
 		}
 		checks, err := api.GetChecks()
 		if err != nil {
+			Health.Sensu[api.Name] = map[string]string{"output": errorString}
 			logger.Warning(err)
 			continue
 		}
 		clients, err := api.GetClients()
 		if err != nil {
+			Health.Sensu[api.Name] = map[string]string{"output": errorString}
 			logger.Warning(err)
 			continue
 		}
 		events, err := api.GetEvents()
 		if err != nil {
+			Health.Sensu[api.Name] = map[string]string{"output": errorString}
 			logger.Warning(err)
 			continue
 		}
 		info, err := api.Info()
 		if err != nil {
+			Health.Sensu[api.Name] = map[string]string{"output": errorString}
 			logger.Warning(err)
 			continue
 		}
+
+		Health.Sensu[api.Name] = map[string]string{"output": "ok"}
 
 		// add fetched data to results interface
 		for _, v := range stashes {
@@ -94,7 +101,6 @@ func Build(dcSlice *[]sensu.Sensu) {
 		d["events"] = fmt.Sprintf("%d", len(events))
 		d["stashes"] = fmt.Sprintf("%d", len(stashes))
 		tmpResults.Dc = append(tmpResults.Dc, d)
-		Health.Sensu[api.Name] = map[string]string{"output": "ok"}
 	}
 
 	BuildEvents()
@@ -121,7 +127,7 @@ func New(c *Config) *[]sensu.Sensu {
 	buildPublicConfig(c)
 	datacenters = make([]sensu.Sensu, len(c.Sensu))
 	for i, apiConf := range c.Sensu {
-		api := sensu.New(apiConf.Name, apiConf.Path, apiConf.URL, apiConf.Timeout, apiConf.User, apiConf.Pass)
+		api := sensu.New(apiConf.Name, apiConf.Path, apiConf.URL, apiConf.Timeout, apiConf.User, apiConf.Pass, apiConf.Insecure)
 		datacenters[i] = *api
 		name := apiConf.Name
 		Health.Sensu[name] = map[string]string{"output": "ok"}

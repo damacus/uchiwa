@@ -173,6 +173,34 @@ describe('filters', function () {
 
   });
 
+  describe('hideSilenced', function () {
+
+    it('should only hide silenced events when hideSilenced is true', inject(function (hideSilencedFilter) {
+      var events = [
+        {id: 'foo', acknowledged: true},
+        {id: 'bar', acknowledged: false}
+      ];
+      var expectedEvents = [
+        {id: 'bar', acknowledged: false}
+      ];
+      expect(hideSilencedFilter(events, false)).toEqual(events);
+      expect(hideSilencedFilter(events, true)).toEqual(expectedEvents);
+    }));
+
+  });
+
+  describe('imagey', function () {
+
+    it('should find an image and display it', inject(function (imageyFilter) {
+      expect(imageyFilter(false)).toBe(false);
+      expect(imageyFilter('http://foo.bar')).toBe('http://foo.bar');
+      expect(imageyFilter('https://foo.bar')).toBe('https://foo.bar');
+      expect(imageyFilter('http://foo.bar/qux.gif')).toBe('<img src="http://foo.bar/qux.gif">');
+      expect(imageyFilter('https://foo.bar/qux.gif')).toBe('<img src="https://foo.bar/qux.gif">');
+    }));
+
+  });
+
   describe('richOutput', function () {
 
     it('should convert an object to JSON string', inject(function (richOutputFilter) {

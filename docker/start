@@ -1,14 +1,3 @@
-#!bin/bash
+#!/bin/bash
 
-export UCHIWA_STATS=${UCHIWA_STATS:-10}
-export UCHIWA_REFRESH=${UCHIWA_REFRESH:-10000}
-export UCHIWA_USER=${UCHIWA_USER:-}
-export UCHIWA_PASS=${UCHIWA_PASS:-}
-
-if [ -e /config/config.json ]
-then
-  go run /src/uchiwa.go -c /config/config.json
-else
-  echo "please add a config.json file to docker/config.json"
-fi
-
+/go/bin/app -c /config/config.json

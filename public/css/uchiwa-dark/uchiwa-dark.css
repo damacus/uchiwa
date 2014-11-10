@@ -121,21 +121,16 @@ pre.hljs .hljs-string {
   color: #FFFFFF;
   font-weight: 700;
   padding: 2px 5px; }
-
-.badge-critical {
-  background-color: #EA5443; }
-
-.badge-warning {
-  background-color: #F9BA46; }
-
-.badge-success {
-  background-color: #43ac6a; }
-
-.badge-unknown {
-  background-color: #9C9990; }
-
-.badge-default {
-  background-color: #22222D; }
+  .badge-success {
+    background-color: #43ac6a; }
+  .badge-warning {
+    background-color: #F9BA46; }
+  .badge-critical {
+    background-color: #EA5443; }
+  .badge-unknown {
+    background-color: #9C9990; }
+  .badge-default, .badge-blue {
+    background-color: #22222D; }
 
 /* Colors */
 /* Body, Sections and Headers */
@@ -177,18 +172,6 @@ pre.hljs .hljs-string {
 .btn {
   font-family: 'Roboto', sans-serif; }
 
-.circle-critical {
-  background-color: #EA5443; }
-
-.circle-warning {
-  background-color: #F9BA46; }
-
-.circle-success {
-  background-color: #43ac6a; }
-
-.circle-unknown {
-  background-color: #9C9990; }
-
 .circle {
   width: 10px;
   height: 10px;
@@ -198,6 +181,16 @@ pre.hljs .hljs-string {
   outline: none !important;
   margin-right: 7px;
   display: inline-block; }
+  .circle-success {
+    background-color: #43ac6a; }
+  .circle-warning {
+    background-color: #F9BA46; }
+  .circle-critical {
+    background-color: #EA5443; }
+  .circle-unknown {
+    background-color: #9C9990; }
+  .circle-default, .circle-blue {
+    background-color: #22222D; }
 
 /* Colors */
 /* Body, Sections and Headers */
@@ -238,8 +231,8 @@ pre.hljs .hljs-string {
 
 .client .value img {
   display: block;
-  width: 100%;
-  height: 100%; }
+  max-width: 100%;
+  max-height: 100%; }
 
 .client .check-info .title {
   font-size: 14px;
@@ -265,7 +258,12 @@ pre.hljs .hljs-string {
 /* Wells */
 .dropdown-menu {
   background-color: #2C2C39;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  min-width: 250px; }
+
+.dropdown-menu-item {
+  padding: 8px 0 8px 8px;
+  font-weight: 400; }
 
 .dropdown-menu > li > a {
   color: #FFFFFF;
@@ -276,12 +274,6 @@ pre.hljs .hljs-string {
 
 .show-on-hover:hover > div.dropdown-menu {
   display: block; }
-
-.navbar .dropdown-menu {
-  min-width: 250px; }
-
-.navbar .dropdown-menu > li > a, .navbar .dropdown-menu > li > a:focus {
-  font-weight: 400; }
 
 .navbar .dropdown-menu {
   top: 85%; }
@@ -363,6 +355,10 @@ pre.hljs .hljs-string {
 
 .nav-filter .form-control.subscriptions {
   width: 140px; }
+
+.nav-filter span {
+  padding-right: 15px;
+  padding-left: 15px; }
 
 .nav-dc {
   text-transform: uppercase; }
@@ -462,6 +458,17 @@ pre.hljs .hljs-string {
 /* Tables */
 /* Timestamp */
 /* Wells */
+.panel-success {
+  background-color: #43ac6a; }
+.panel-warning {
+  background-color: #F9BA46; }
+.panel-critical {
+  background-color: #EA5443; }
+.panel-unknown {
+  background-color: #9C9990; }
+.panel-default, .panel-blue {
+  background-color: #22222D; }
+
 .panel-heading {
   font-weight: 700; }
 
@@ -477,21 +484,6 @@ pre.hljs .hljs-string {
   background-color: #373747;
   color: #FFFFFF;
   border-color: #21212b; }
-
-.panel-blue {
-  background-color: #22222D; }
-
-.panel-critical {
-  background-color: #EA5443; }
-
-.panel-warning {
-  background-color: #F9BA46; }
-
-.panel-success {
-  background-color: #43ac6a; }
-
-.panel-unknown {
-  background-color: #9C9990; }
 
 /* Colors */
 /* Body, Sections and Headers */
